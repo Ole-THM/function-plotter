@@ -19,7 +19,7 @@ public class InfixParser implements ParserI {
     public ASTNodeI parse(String input) throws ParseException {
         this.tokens = this.lexer.tokenize(input);
         this.pos = 0;
-        return new AST().setRoot(parseExpression());
+        return new AST(parseExpression());
     }
 
     private ASTNodeI parseExpression() throws ParseException {
@@ -97,7 +97,12 @@ public class InfixParser implements ParserI {
     }
 
     @Override
-    public boolean isValid(String input) throws ParseException {
-        return false;
+    public boolean isValid(String input) {
+        try {
+            parse(input);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
     }
 }
