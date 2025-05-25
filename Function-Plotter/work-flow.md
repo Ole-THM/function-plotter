@@ -21,11 +21,11 @@ Natürlich! Hier ist ein übersichtlicher Workflow-Chart für dein Funktionsplot
 
 ### **2. Eingabeverarbeitung**
 - [ ] GUI für die Eingabe von mathematischen Ausdrücken (Infix/UPN)
-- [ ] Tokenizer implementieren
-- [ ] Zwei Parser (Infix & UPN) entwickeln/integrieren
+- [X] Tokenizer implementieren
+- [X] Zwei Parser (Infix & UPN) entwickeln/integrieren
 
 ### **3. AST-Erstellung**
-- [ ] Parser erzeugt einen abstrakten Syntaxbaum (AST) mit modernen Java-Features (Records, sealed Interfaces)
+- [X] Parser erzeugt einen abstrakten Syntaxbaum (AST) mit modernen Java-Features (Records, sealed Interfaces)
 - [ ] Fehlerbehandlung bei ungültigen Ausdrücken
 
 ### **4. AST-Visualisierung**
