@@ -46,7 +46,7 @@ class InfixParserTest {
     void testUnaryMinus() throws ParseException {
         InfixParser parser = new InfixParser();
         ASTNodeI ast = parser.parse("-5");
-        assertEquals("-5", ast.toStringInfix());
+        assertEquals("¯5", ast.toStringInfix());
         assertEquals(-5.0, ast.evaluate());
     }
 }
