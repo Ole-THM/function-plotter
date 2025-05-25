@@ -1,12 +1,19 @@
 package de.functionPlotter.ParsingEngine.Parser;
 
+import de.functionPlotter.AbstractSyntaxTree.ASTNodeI;
+
+import java.text.ParseException;
+
 public class Parser {
 
-    private InfixParser infixParser;
-    private UPNParser upnParser;
+    private static final InfixParser infixParser = new InfixParser();
+    private static final RPNParser RPNParser = new RPNParser();
 
-    public Parser() {
-        this.infixParser = new InfixParser();
-        this.upnParser = new UPNParser();
+    public static ASTNodeI parseInfix(String expression) throws ParseException {
+        return infixParser.parse(expression);
+    }
+
+    public static ASTNodeI parseRPN(String expression) throws ParseException {
+        return RPNParser.parse(expression);
     }
 }
