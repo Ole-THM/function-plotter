@@ -33,7 +33,6 @@ public class Plotter {
             int yPos = (int) ((y - GlobalContext.xyRange.yMin()) / (GlobalContext.xyRange.yMax() - GlobalContext.xyRange.yMin()) * GlobalContext.outputDimensions[1]);
             GlobalContext.outputString.append("<circle cx=\"").append(xPos).append("\" cy=\"").append(GlobalContext.outputDimensions[1] - yPos).append("\" r=\"2\" fill=\"black\"/>\n");
         }
-        double value = ast.evaluate();
     }
 
     private static double getStepSize() {
