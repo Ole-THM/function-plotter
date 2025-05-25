@@ -19,7 +19,7 @@ public class InfixParser implements ParserI {
     public ASTNodeI parse(String input) throws ParseException {
         this.tokens = this.lexer.tokenize(input);
         this.pos = 0;
-        return parseExpression();
+        return new AST().setRoot(parseExpression());
     }
 
     private ASTNodeI parseExpression() throws ParseException {
@@ -52,9 +52,9 @@ public class InfixParser implements ParserI {
         return node;
     }
     private ASTNodeI parseExponent() throws ParseException {
-        if (match(TokenType.MINUS)) {
+        if (match(TokenType.UNARYMINUS, TokenType.MINUS)) {
             // -x wird als UnaryOpNode gespeichert
-            return new UnaryOpNode(parseFactor(), TokenType.MINUS);
+            return new UnaryOpNode(parseFactor(), TokenType.UNARYMINUS);
         }
         if (match(TokenType.NUMBER)) {
             return new ValueNode(Double.parseDouble(previous().text()));
