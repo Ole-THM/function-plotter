@@ -16,24 +16,19 @@ public class RPNParser implements ParserI {
     public RPNParser() { this.lexer = new Lexer(); }
 
     public ASTNodeI parse(String input) throws ParseException {
+        this.stack.clear();
         List<Token> tokens = this.lexer.tokenize(input);
         for (Token token : tokens) {
             switch (token.type()) {
-                case NUMBER -> {
-                    this.stack.push(
-                            new ValueNode(Double.parseDouble(token.text()))
-                    );
-                }
-                case IDENTIFIER -> {
-                    this.stack.push(
-                            new VariableNode(token.text())
-                    );
-                }
-                case FUNCTION -> {
-                    this.stack.push(
-                            new FunctionCallNode(token.text(), List.of(this.stack.pop()))
-                    );
-                }
+                case NUMBER -> this.stack.push(
+                        new ValueNode(Double.parseDouble(token.text()))
+                );
+                case IDENTIFIER -> this.stack.push(
+                        new VariableNode(token.text())
+                );
+                case FUNCTION -> this.stack.push(
+                        new FunctionCallNode(token.text(), List.of(this.stack.pop()))
+                );
                 case MINUS, PLUS, MULTIPLY, DIVIDE, EXPONENT -> {
                     ASTNodeI right = this.stack.pop();
                     ASTNodeI left = this.stack.pop();
@@ -41,18 +36,21 @@ public class RPNParser implements ParserI {
                             new BinaryOpNode(left, token.type(), right)
                     );
                 }
-                case EOF -> {
-                    break;
-                }
+                case EOF -> {}
                 default -> throw new ParseException("Unexpected Token: " + token.text(), 0);
             }
         }
-        return new AST().setRoot(this.stack.pop());
+        return new AST(this.stack.pop());
     }
 
     @Override
-    public boolean isValid(String input) throws ParseException {
-        return false;
+    public boolean isValid(String input) {
+        try {
+            parse(input);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
     }
 
 
