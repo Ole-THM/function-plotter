@@ -2,6 +2,7 @@ package de.functionPlotter.App;
 
 import de.functionPlotter.AbstractSyntaxTree.ASTNodeI;
 import de.functionPlotter.ParsingEngine.Parser.Parser;
+import de.functionPlotter.UI.MainWindow;
 import de.functionPlotter.Utils.GlobalContext;
 
 import java.text.ParseException;
@@ -17,6 +18,7 @@ public class App {
         System.out.println(ast.evaluate());
         ASTNodeI ast2 = Parser.parseRPN("10 sin");
         System.out.println(ast2.evaluate());
+        MainWindow.main(args);
     }
 
 }
