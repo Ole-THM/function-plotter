@@ -23,6 +23,15 @@ public class Variables {
         );
     }
 
+    public void set(String name, ASTNodeI value) {
+        this.remove(name);
+        this.add(name, value);
+    }
+
+    public void remove(String name) {
+        this.variables.removeIf(var -> var.getName().equals(name));
+    }
+
     public Variable getOrDefault(String name) {
         for (Variable variable : this.variables) {
             if (variable.getName().equals(name)) {
