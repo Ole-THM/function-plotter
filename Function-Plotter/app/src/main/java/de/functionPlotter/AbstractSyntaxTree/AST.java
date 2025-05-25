@@ -1,20 +1,7 @@
 package de.functionPlotter.AbstractSyntaxTree;
 
 
-public class AST implements ASTNodeI {
-
-    private ASTNodeI root;
-
-    public AST() {}
-
-    public AST setRoot(ASTNodeI root) {
-        this.root = root;
-        return this;
-    }
-
-    public ASTNodeI getRoot() {
-        return this.root;
-    }
+public record AST(ASTNodeI root) implements ASTNodeI {
 
     @Override
     public double evaluate() {
