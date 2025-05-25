@@ -7,8 +7,9 @@ public class AST implements ASTNodeI {
 
     public AST() {}
 
-    public void setRoot(ASTNodeI root) {
+    public AST setRoot(ASTNodeI root) {
         this.root = root;
+        return this;
     }
 
     public ASTNodeI getRoot() {
