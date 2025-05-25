@@ -14,5 +14,5 @@ public interface ParserI {
      */
     ASTNodeI parse(String input) throws ParseException;
 
-    boolean isValid(String input) throws ParseException;
+    boolean isValid(String input);
 }
