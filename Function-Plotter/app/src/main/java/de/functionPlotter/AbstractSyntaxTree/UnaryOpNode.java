@@ -8,7 +8,7 @@ public record UnaryOpNode(ASTNodeI node, TokenType op) implements ASTNodeI {
     public double evaluate() {
         return switch (op) {
             case PLUS -> this.node.evaluate(); // Unary plus, no change
-            case MINUS -> -this.node.evaluate(); // Unary minus, negate the value
+            case UNARYMINUS -> -this.node.evaluate(); // Unary minus, negate the value
             default -> throw new UnsupportedOperationException("Unsupported operation: " + op);
         };
     }
@@ -17,7 +17,7 @@ public record UnaryOpNode(ASTNodeI node, TokenType op) implements ASTNodeI {
     public String toStringInfix() {
         return switch (op) {
             case PLUS -> this.node.toStringInfix(); // Unary plus, no change
-            case MINUS -> "-" + this.node.toStringInfix(); // Unary minus, negate the value
+            case UNARYMINUS -> "¯" + this.node.toStringInfix(); // Unary minus, negate the value
             default -> throw new UnsupportedOperationException("Unsupported operation: " + op);
         };
 
