@@ -22,3 +22,12 @@
    ```bash
    ./gradlew run
    ```
+   
+## Testing
+
+### Run tests
+
+1. To run all tests, use:
+   ```bash
+   ./gradlew test
+   ```
