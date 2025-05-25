@@ -23,6 +23,7 @@ public class Lexer {
                 switch (currentChar) {
                     case '+': tokens.add(new Token(TokenType.PLUS, "+")); break;
                     case '-': tokens.add(new Token(TokenType.MINUS, "-")); break;
+                    case '¯': tokens.add(new Token(TokenType.UNARYMINUS, "¯")); break;
                     case '*': tokens.add(new Token(TokenType.MULTIPLY, "*")); break;
                     case '/': tokens.add(new Token(TokenType.DIVIDE, "/")); break;
                     case '(': tokens.add(new Token(TokenType.OPENPARENTHESIS, "(")); break;
