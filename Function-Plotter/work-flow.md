@@ -21,6 +21,7 @@ Natürlich! Hier ist ein übersichtlicher Workflow-Chart für dein Funktionsplot
 
 ### **2. Eingabeverarbeitung**
 - [ ] GUI für die Eingabe von mathematischen Ausdrücken (Infix/UPN)
+- [ ] CSS-Stylesheet für GUI-Design
 - [X] Tokenizer implementieren
 - [X] Zwei Parser (Infix & UPN) entwickeln/integrieren
 
