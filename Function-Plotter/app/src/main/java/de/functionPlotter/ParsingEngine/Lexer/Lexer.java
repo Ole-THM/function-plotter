@@ -29,6 +29,7 @@ public class Lexer {
                     case '(': tokens.add(new Token(TokenType.OPENPARENTHESIS, "(")); break;
                     case ')': tokens.add(new Token(TokenType.CLOSEPARENTHESIS, ")")); break;
                     case '^': tokens.add(new Token(TokenType.EXPONENT, "^")); break;
+                    case ',': tokens.add(new Token(TokenType.COMMA, ",")); break;
                     default: throw new RuntimeException("Unbekanntes Zeichen: " + currentChar);
                 }
                 pos++;
@@ -55,5 +56,4 @@ public class Lexer {
             return new Token(TokenType.IDENTIFIER, text);
         }
     }
-
 }
