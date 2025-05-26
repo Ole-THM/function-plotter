@@ -59,7 +59,7 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.25" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.2" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
         <AnchorPane fx:id="functionAnchorPane">
           <children>
@@ -73,23 +73,43 @@
             </Label>
             <TextField fx:id="fTextField" layoutX="25.0" layoutY="40.0" />
             <Text layoutX="3.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="f(x)" />
-            <Button fx:id="plotButton" layoutX="110.0" layoutY="135.0" mnemonicParsing="false" text="Plot" />
-            <Button fx:id="addExpressionTextFieldButton" layoutX="36.0" layoutY="135.0" mnemonicParsing="false" text="+" />
+            <Button fx:id="plotButton" layoutX="25.0" layoutY="120.0" mnemonicParsing="false" prefWidth="150.0" text="Plot" />
+            <Button fx:id="addExpressionTextFieldButton" layoutX="25.0" layoutY="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="+" />
           </children>
         </AnchorPane>
-        <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
-          <children>
-            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="Plot" textAlignment="CENTER" wrapText="false">
-              <font>
-                <Font size="18.0" fx:id="x5" />
-              </font>
-              <textFill>
-                <Color red="0.624" green="0.624" blue="0.624" fx:id="x6" />
-              </textFill>
-            </Label>
-            <WebView fx:id="webView" layoutX="-1.0" layoutY="39.0" prefHeight="720.0" prefWidth="1280.0" />
-          </children>
-        </AnchorPane>
+            <SplitPane dividerPositions="0.7" prefHeight="160.0" prefWidth="200.0">
+              <items>
+              <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
+                <children>
+                  <Label alignment="CENTER" layoutX="6.0" layoutY="11.0" prefHeight="27.0" prefWidth="468.0" style="&#10;" text="Plot" textAlignment="CENTER" wrapText="false" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="8.0">
+                    <font>
+                      <Font size="18.0" fx:id="x5" />
+                    </font>
+                    <textFill>
+                      <Color red="0.624" green="0.624" blue="0.624" fx:id="x6" />
+                    </textFill>
+                  </Label>
+                  <WebView fx:id="webView" layoutX="-1.0" layoutY="39.0" prefHeight="720.0" prefWidth="1280.0" />
+                </children>
+              </AnchorPane>
+                  <AnchorPane fx:id="variableAnchorPane" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="CENTER" minWidth="60.0" prefHeight="27.0" prefWidth="150.0" style="&#10;" text="Variables" textAlignment="CENTER" wrapText="false">
+                           <font>
+                              <Font size="18.0" fx:id="x11" />
+                           </font>
+                           <textFill>
+                              <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
+                           </textFill>
+                        </Label>
+                        <TextField fx:id="aTextField" layoutX="25.0" layoutY="40.0" />
+                        <Text layoutX="3.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="a" textAlignment="CENTER" wrappingWidth="16.505859375" />
+                        <Button fx:id="addVariableTextFieldButton" layoutX="25.0" layoutY="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="+" />
+                        <Button fx:id="saveVariablesButton" layoutX="25.0" layoutY="120.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="Save" />
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
       </items>
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
