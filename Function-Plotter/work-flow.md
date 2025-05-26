@@ -55,3 +55,8 @@ Natürlich! Hier ist ein übersichtlicher Workflow-Chart für dein Funktionsplot
 ### **10. Abgabe**
 - [ ] Projekt als ZIP und lauffähige JAR für LVP packen
 - [ ] Abgabe gemäß Vorgaben
+
+
+### **11. Polishing**
+- [ ] Letzte Anpassungen und Optimierungen
+    - [ ] Bei toString Methoden trailing zeros entfernen
