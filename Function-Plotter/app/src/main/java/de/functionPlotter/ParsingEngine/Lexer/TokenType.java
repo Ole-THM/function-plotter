@@ -6,5 +6,6 @@ public enum TokenType {
     FUNCTION, UNARYMINUS,                               // Native functions like sin, cos, log, sqrt etc.
     PLUS, MINUS, MULTIPLY, DIVIDE, EXPONENT,            // Arithmetic operators
     OPENPARENTHESIS, CLOSEPARENTHESIS,                  // Parentheses
+    COMMA,                                              // Comma for function arguments
     EOF                                                 // End of file token
 }
