@@ -2,6 +2,7 @@ package de.functionPlotter.App;
 
 import de.functionPlotter.AbstractSyntaxTree.ValueNode;
 import de.functionPlotter.Utils.GlobalContext;
+import de.functionPlotter.Utils.Variable;
 
 public class Setup {
 
@@ -11,11 +12,26 @@ public class Setup {
     }
 
     private static void setUpConstants() {
-        GlobalContext.VARIABLES.add("pi", new ValueNode(Math.PI));
-        GlobalContext.VARIABLES.add("e", new ValueNode(Math.E));
+        GlobalContext.VARIABLES.add(
+                new Variable(
+                        "pi",
+                        new ValueNode(Math.PI)
+                )
+        );
+        GlobalContext.VARIABLES.add(
+                new Variable(
+                        "e",
+                        new ValueNode(Math.E)
+                )
+        );
     }
 
     private static void setUpVariables() {
-        GlobalContext.VARIABLES.add("x", new ValueNode(0)); // Default astNode for x
+        GlobalContext.VARIABLES.add(
+                new Variable(
+                        "x",
+                        new ValueNode(0)
+                )
+        ); // Default astNode for x
     }
 }

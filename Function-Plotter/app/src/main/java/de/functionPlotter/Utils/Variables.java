@@ -14,18 +14,13 @@ public class Variables {
         this.variables = new ArrayList<>();
     }
 
-    public void add(String name, ASTNodeI value) {
-        this.variables.add(
-                new Variable(
-                        name,
-                        value
-                )
-        );
+    public void add(Variable variable) {
+        this.variables.add(variable);
     }
 
-    public void set(String name, ASTNodeI value) {
+    public void set(String name, ASTNodeI node) {
         this.remove(name);
-        this.add(name, value);
+        this.add(new Variable(name, node));
     }
 
     public void remove(String name) {
