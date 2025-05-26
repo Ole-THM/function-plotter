@@ -25,15 +25,25 @@ public class Plotter {
         saveSvgToFile(GlobalContext.outputString.toString());
     }
 
-    private static void plotFunction(ASTNodeI ast) {
-        for (double x = GlobalContext.xyRange.xMin(); x <= GlobalContext.xyRange.xMax(); x += getStepSize()) {
-            GlobalContext.VARIABLES.set("x", new ValueNode(x));
-            double y = ast.evaluate();
-            int xPos = (int) ((x - GlobalContext.xyRange.xMin()) / (GlobalContext.xyRange.xMax() - GlobalContext.xyRange.xMin()) * GlobalContext.outputDimensions[0]);
-            int yPos = (int) ((y - GlobalContext.xyRange.yMin()) / (GlobalContext.xyRange.yMax() - GlobalContext.xyRange.yMin()) * GlobalContext.outputDimensions[1]);
-            GlobalContext.outputString.append("<circle cx=\"").append(xPos).append("\" cy=\"").append(GlobalContext.outputDimensions[1] - yPos).append("\" r=\"2\" fill=\"black\"/>\n");
+private static void plotFunction(ASTNodeI ast) {
+    Double prevX = null, prevY = null;
+    for (double x = GlobalContext.xyRange.xMin(); x <= GlobalContext.xyRange.xMax(); x += getStepSize()) {
+        GlobalContext.VARIABLES.set("x", new ValueNode(x));
+        double y = ast.evaluate();
+        int xPos = (int) ((x - GlobalContext.xyRange.xMin()) / (GlobalContext.xyRange.xMax() - GlobalContext.xyRange.xMin()) * GlobalContext.outputDimensions[0]);
+        int yPos = (int) ((y - GlobalContext.xyRange.yMin()) / (GlobalContext.xyRange.yMax() - GlobalContext.xyRange.yMin()) * GlobalContext.outputDimensions[1]);
+        yPos = GlobalContext.outputDimensions[1] - yPos;
+        if (prevX != null && prevY != null) {
+            GlobalContext.outputString.append("<line x1=\"").append(prevX.intValue())
+                .append("\" y1=\"").append(prevY.intValue())
+                .append("\" x2=\"").append(xPos)
+                .append("\" y2=\"").append(yPos)
+                .append("\" stroke=\"black\" stroke-width=\"2\"/>\n");
         }
+        prevX = (double) xPos;
+        prevY = (double) yPos;
     }
+}
 
     private static double getStepSize() {
         // Adjust step size based on the range and resolution
