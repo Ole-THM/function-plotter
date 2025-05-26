@@ -16,6 +16,6 @@ public class Setup {
     }
 
     private static void setUpVariables() {
-        GlobalContext.VARIABLES.add("x", new ValueNode(0)); // Default value for x
+        GlobalContext.VARIABLES.add("x", new ValueNode(0)); // Default astNode for x
     }
 }
