@@ -3,33 +3,34 @@ package de.functionPlotter.Utils;
 
 import de.functionPlotter.AbstractSyntaxTree.ASTNodeI;
 
-public record Variable(String name, ASTNodeI value) {
+public record Variable(String name, ASTNodeI astNode) {
 
     public String getName() {
         return name;
     }
 
     public ASTNodeI getValue() {
-        return value;
+        return astNode;
     }
 
     public double evaluate() {
-        if (value == null) {
-            throw new IllegalStateException("Variable value is not set.");
+        if (astNode == null) {
+            throw new IllegalStateException("Variable astNode is not set.");
         }
-        return value.evaluate();
+        return astNode.evaluate();
     }
 
     @Override
     public String toString() {
         return "Variable{" +
                 "name='" + name + '\'' +
-                ", value=" + value +
+                ", astNode=" + astNode +
                 '}';
     }
 
     public String toStringInfix() {
-        return this.value.toStringInfix();
+        return this.astNode.toStringInfix();
     }
 
+    public String toStringRPN() { return this.astNode.toStringRPN(); }
 }
