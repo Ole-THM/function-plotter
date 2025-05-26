@@ -7,6 +7,8 @@ import de.functionPlotter.ParsingEngine.Lexer.Token;
 import de.functionPlotter.ParsingEngine.Lexer.TokenType;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class InfixParser implements ParserI {
@@ -19,7 +21,11 @@ public class InfixParser implements ParserI {
     public ASTNodeI parse(String input) throws ParseException {
         this.tokens = this.lexer.tokenize(input);
         this.pos = 0;
-        return new AST(parseExpression());
+        ASTNodeI result = new AST(parseExpression());
+        if (this.tokens.get(pos).type() != TokenType.EOF) {
+            throw new ParseException("Unerwartete Tokens am Ende: " + peek(), pos);
+        }
+        return result;
     }
 
     private ASTNodeI parseExpression() throws ParseException {
@@ -43,15 +49,15 @@ public class InfixParser implements ParserI {
     }
 
     private ASTNodeI parseFactor() throws ParseException {
-        ASTNodeI node = parseExponent();
+        ASTNodeI node = parsePrimary();
         if (match(TokenType.EXPONENT)) {
             TokenType op = previous().type();
-            ASTNodeI right = parseExponent();
+            ASTNodeI right = parsePrimary();
             node = new BinaryOpNode(node, op, right);
         }
         return node;
     }
-    private ASTNodeI parseExponent() throws ParseException {
+    private ASTNodeI parsePrimary() throws ParseException {
         if (match(TokenType.UNARYMINUS, TokenType.MINUS)) {
             // -x wird als UnaryOpNode gespeichert
             return new UnaryOpNode(parseFactor(), TokenType.UNARYMINUS);
@@ -68,13 +74,22 @@ public class InfixParser implements ParserI {
             return expr;
         }
         if (match(TokenType.FUNCTION)) {
-            String funcName = previous().text();
-            expect(TokenType.OPENPARENTHESIS);
-            ASTNodeI arg = parseExpression();
-            expect(TokenType.CLOSEPARENTHESIS);
-            return new FunctionCallNode(funcName, List.of(arg));
+            return parseFunctionCall();
         }
         throw new ParseException("Unerwartetes Token: " + peek(), this.pos);
+    }
+
+    private ASTNodeI parseFunctionCall() throws ParseException {
+        String funcName = previous().text();
+        expect(TokenType.OPENPARENTHESIS);
+        ASTNodeI firstArg = parseExpression();
+        ASTNodeI secondArg = null;
+        if (match(TokenType.COMMA)) {
+            secondArg = parseExpression();
+        }
+        List<ASTNodeI> args = new ArrayList<>(Arrays.asList(firstArg, secondArg));
+        expect(TokenType.CLOSEPARENTHESIS);
+        return new FunctionCallNode(funcName, args);
     }
 
     // Hilfsmethoden
@@ -87,11 +102,9 @@ public class InfixParser implements ParserI {
         }
         return false;
     }
-    private boolean check(TokenType type) {
-        return peek().type() == type;
-    }
-    private Token previous() { return tokens.get(pos - 1); }
-    private Token peek() { return tokens.get(pos); }
+    private boolean check(TokenType type) { return peek().type() == type; }
+    private Token previous() { return this.tokens.get(pos - 1); }
+    private Token peek() { return this.tokens.get(pos); }
     private void expect(TokenType type) throws ParseException {
         if (!match(type)) throw new ParseException("Erwartet: " + type, this.pos);
     }
@@ -99,7 +112,7 @@ public class InfixParser implements ParserI {
     @Override
     public boolean isValid(String input) {
         try {
-            parse(input);
+            this.parse(input);
             return true;
         } catch (ParseException e) {
             return false;
