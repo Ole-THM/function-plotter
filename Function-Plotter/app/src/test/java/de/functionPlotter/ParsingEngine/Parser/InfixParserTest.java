@@ -36,10 +36,11 @@ class InfixParserTest {
 
     @Test
     void testFunctionCall() throws ParseException {
-        InfixParser parser = new InfixParser();
-        ASTNodeI ast = parser.parse("sin(0)");
-        assertEquals("sin(0)", ast.toStringInfix());
-        assertEquals(0.0, ast.evaluate(), 1e-9);
+        InfixParser parse = new InfixParser();
+        ASTNodeI ast = parse.parse("log(10,2) + sin(0.5)");
+        assertEquals("log(10, 2) + sin(0,5000)", ast.toStringInfix());
+        assertEquals(Math.log(2) / Math.log(10) + Math.sin(0.5), ast.evaluate(), 1e-10);
+
     }
 
     @Test

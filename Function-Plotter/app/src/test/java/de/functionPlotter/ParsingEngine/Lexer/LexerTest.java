@@ -54,6 +54,29 @@ class LexerTest {
     }
 
     @Test
+    void testFunctionCall() {
+        Lexer lexer = new Lexer();
+        List<Token> tokens = lexer.tokenize("sin(x) + log(10, 2)");
+        assertEquals(TokenType.FUNCTION, tokens.get(0).type());
+        assertEquals("sin", tokens.get(0).text());
+        assertEquals(TokenType.OPENPARENTHESIS, tokens.get(1).type());
+        assertEquals(TokenType.IDENTIFIER, tokens.get(2).type());
+        assertEquals("x", tokens.get(2).text());
+        assertEquals(TokenType.CLOSEPARENTHESIS, tokens.get(3).type());
+        assertEquals(TokenType.PLUS, tokens.get(4).type());
+        assertEquals(TokenType.FUNCTION, tokens.get(5).type());
+        assertEquals("log", tokens.get(5).text());
+        assertEquals(TokenType.OPENPARENTHESIS, tokens.get(6).type());
+        assertEquals(TokenType.NUMBER, tokens.get(7).type());
+        assertEquals("10", tokens.get(7).text());
+        assertEquals(TokenType.COMMA, tokens.get(8).type());
+        assertEquals(TokenType.NUMBER, tokens.get(9).type());
+        assertEquals("2", tokens.get(9).text());
+        assertEquals(TokenType.CLOSEPARENTHESIS, tokens.get(10).type());
+        assertEquals(TokenType.EOF, tokens.get(11).type());
+    }
+
+    @Test
     void testUnknownCharacter() {
         Lexer lexer = new Lexer();
         assertThrows(RuntimeException.class, () -> lexer.tokenize("2$3"));
