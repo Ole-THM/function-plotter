@@ -33,7 +33,20 @@ public record FunctionCallNode(String functionName, List<ASTNodeI> arguments) im
                     : String.format("%.4f", Math.E) + ", " + this.arguments.get(0).toStringInfix()) + ")";
             default -> throw new UnsupportedOperationException("Unsupported function: " + functionName);
         };
+    }
 
+    @Override
+    public String toStringRPN() {
+        return switch (functionName) {
+            case "sin" -> this.arguments.getFirst().toStringRPN() + " sin";
+            case "cos" -> this.arguments.getFirst().toStringRPN() + " cos";
+            case "tan" -> this.arguments.getFirst().toStringRPN() + " tan";
+            case "sqrt" -> this.arguments.getFirst().toStringRPN() + " sqrt";
+            case "log" -> (this.arguments.get(1) != null
+                    ? this.arguments.getFirst().toStringRPN() + " " + this.arguments.get(1).toStringRPN()
+                    : String.format("%.4f", Math.E) + ", " + this.arguments.get(0).toStringRPN()) + " log";
+            default -> throw new UnsupportedOperationException("Unsupported function: " + functionName);
+        };
     }
 }
 

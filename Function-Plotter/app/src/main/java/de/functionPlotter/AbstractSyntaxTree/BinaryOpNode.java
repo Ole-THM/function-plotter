@@ -27,6 +27,11 @@ public record BinaryOpNode(ASTNodeI left, TokenType op, ASTNodeI right) implemen
         return leftStr + " " + opToString(op) + " " + rightStr;
     }
 
+    @Override
+    public String toStringRPN() {
+        return this.left.toStringRPN() + " " + this.right.toStringRPN() + " " + opToString(op);
+    }
+
     private String opToString(TokenType op) {
         return switch (op) {
             case PLUS -> "+";
