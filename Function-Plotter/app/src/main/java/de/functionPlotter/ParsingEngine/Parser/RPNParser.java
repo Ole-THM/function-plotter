@@ -33,7 +33,7 @@ public class RPNParser implements ParserI {
                     ASTNodeI left = null;
                     if (token.text().equals("log")) {
                         if (this.stack.size() == 1) {
-                            right = this.safePop();
+                            left = this.safePop();
                         } else if (this.stack.size() >= 2) {
                             right = this.safePop();
                             left = this.safePop();
