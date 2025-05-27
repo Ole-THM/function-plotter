@@ -4,7 +4,7 @@ import de.functionPlotter.Utils.GlobalContext;
 /*
 * X Axis scaling idea:
 * Example logarithmic scaling:
-* scaling of the X Axis means taking the the base x values from the given xyRange and what ever value log(x) returns,
+* scaling of the X Axis means taking the base x values from the given xyRange and what ever value log(x) returns,
 * is the new x value for that point.
 * This means that the x values are not linear anymore, but logarithmic.
 * Example:
@@ -23,8 +23,8 @@ public class BaseCoordinateSystem {
         double xMax = GlobalContext.xyRange.xMax();
         double yMin = GlobalContext.xyRange.yMin();
         double yMax = GlobalContext.xyRange.yMax();
-        axisXPos = (int) ((-xMin / (xMax - xMin)) * GlobalContext.outputDimensions.width());
-        axisYPos = (int) ((-yMin / (yMax - yMin)) * GlobalContext.outputDimensions.height());
+        axisXPos = (int) ((-xMin / GlobalContext.xyRange.xRange()) * GlobalContext.outputDimensions.width());
+        axisYPos = (GlobalContext.outputDimensions.height() - (int) ((-yMin / GlobalContext.xyRange.yRange()) * GlobalContext.outputDimensions.height()));
         genGrid(xMin, xMax, yMin, yMax);
         genYAxis(xMin, xMax);
         genXAxis(yMin, yMax);
