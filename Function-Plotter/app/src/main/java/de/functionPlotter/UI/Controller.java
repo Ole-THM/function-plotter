@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.web.WebView;
 
 import java.net.URL;
@@ -73,6 +74,7 @@ public class Controller implements Initializable {
         Text t = new Text(newIdentifier + "(x)");
         t.setLayoutX(3.0);
         t.setLayoutY(this.numberOfExpressions * 40.0 + 15.0);
+        t.setTextAlignment(TextAlignment.CENTER);
         t.setId(newIdentifier + "Text");
 
         TextField tf = new TextField();
@@ -105,6 +107,7 @@ public class Controller implements Initializable {
         String newIdentifier = "" + (char) ('a' + this.numberOfVariables - 1);
 
         Text t = new Text(newIdentifier);
+        t.setTextAlignment(TextAlignment.CENTER);
         t.setLayoutX(3.0);
         t.setLayoutY(this.numberOfVariables * 40.0 + 15.0);
         t.setId(newIdentifier + "Text");
