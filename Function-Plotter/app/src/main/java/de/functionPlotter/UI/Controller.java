@@ -2,14 +2,18 @@ package de.functionPlotter.UI;
 
 import de.functionPlotter.AbstractSyntaxTree.ASTNodeI;
 import de.functionPlotter.ParsingEngine.Parser.Parser;
+import de.functionPlotter.Plot.PlotUtils.ColoredNode;
+import de.functionPlotter.Plot.PlotUtils.RGB;
 import de.functionPlotter.Plot.Plotter;
 import de.functionPlotter.Utils.GlobalContext;
 import de.functionPlotter.Utils.Variable;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.web.WebView;
@@ -24,6 +28,13 @@ public class Controller implements Initializable {
     private int numberOfExpressions = 1;
     private int numberOfVariables = 1;
 
+    private Color[] colors = {
+            Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.ORANGE,
+            Color.PURPLE, Color.CYAN, Color.MAGENTA, Color.BROWN, Color.GRAY,
+            Color.PINK, Color.LIGHTBLUE, Color.LIGHTGREEN, Color.LIGHTYELLOW,
+            Color.AQUA
+    };
+
     @FXML
     private AnchorPane functionAnchorPane;
 
@@ -35,6 +46,9 @@ public class Controller implements Initializable {
 
     @FXML
     private TextField aTextField;
+
+    @FXML
+    private ColorPicker fColorPicker;
 
     @FXML
     private Button plotButton;
@@ -55,7 +69,7 @@ public class Controller implements Initializable {
     private void plotButtonHandler() throws ParseException {
         System.out.println("You clicked me!");
         System.out.println("f: " + fTextField.getText());
-        Plotter.plot(this.getASTs());
+        Plotter.plot(this.getNodesAndColors());
 //        webView.getEngine().load(Objects.requireNonNull(getClass().getResource("/output.svg")).toExternalForm()); // load save svg file
         webView.getEngine().loadContent(GlobalContext.outputString.toString());
     }
@@ -82,8 +96,15 @@ public class Controller implements Initializable {
         tf.setLayoutY(this.numberOfExpressions * 40.0);
         tf.setId(newIdentifier + "TextField");
 
+        ColorPicker cp = new ColorPicker(this.colors[this.numberOfExpressions % this.colors.length]); // modulo not necessary because the current implementation limits the number of variables to 15
+        cp.setLayoutX(190.0);
+        cp.setLayoutY(this.numberOfExpressions * 40.0);
+        cp.setPrefHeight(26.0);
+        cp.setPrefWidth(28.0);
+        cp.setId(newIdentifier + "ColorPicker");
+
         tf.setPromptText("Enter function");
-        functionAnchorPane.getChildren().addAll(t, tf);
+        functionAnchorPane.getChildren().addAll(t, tf, cp);
         this.plotButton.setLayoutY((this.numberOfExpressions + 2) * 40.0);
         this.addExpressionTextFieldButton.setLayoutY((this.numberOfExpressions + 1) * 40.0);
         tf.requestFocus();
@@ -159,6 +180,13 @@ public class Controller implements Initializable {
         });
     }
 
+    private RGB getRGBFromColor(Color color) {
+        int red = (int) (color.getRed() * 255);
+        int green = (int) (color.getGreen() * 255);
+        int blue = (int) (color.getBlue() * 255);
+        return new RGB(red, green, blue);
+    }
+
     private Variable[] getVariables() {
         ArrayList<Variable> variables = new ArrayList<>();
         for (int i = 0; i < this.numberOfVariables; i++) {
@@ -180,20 +208,24 @@ public class Controller implements Initializable {
         return variables.toArray(new Variable[0]);
     }
 
-    private ASTNodeI[] getASTs() {
-        ArrayList<ASTNodeI> asts = new ArrayList<>();
+    private ColoredNode[] getNodesAndColors() {
+        ArrayList<ColoredNode> coloredNodes = new ArrayList<>();
         // Debugging: Print all children of the functionAnchorPane
 //        for (javafx.scene.Node node : functionAnchorPane.getChildren()) {
 //            System.out.println("Child ID: " + node.getId());
 //        }
         for (int i = 0; i < this.numberOfExpressions; i++) {
             TextField textField = (TextField) functionAnchorPane.lookup("#" + (char) ('f' + i) + "TextField");
-            if (textField != null) {
+            ColorPicker colorPicker = (ColorPicker) functionAnchorPane.lookup("#" + (char) ('f' + i) + "ColorPicker");
+            if (textField != null && colorPicker != null) {
                 String expression = textField.getText();
                 if (!expression.isEmpty()) {
                     try {
                         ASTNodeI ast = Parser.parse(expression);
-                        asts.add(ast);
+                        coloredNodes.add(new ColoredNode(
+                                ast,
+                                this.getRGBFromColor(colorPicker.getValue())
+                        ));
                     } catch (ParseException e) {
                         System.err.println("Error parsing expression: " + expression);
                     }
@@ -202,7 +234,7 @@ public class Controller implements Initializable {
                 System.err.println("TextField für Ausdruck " + (char) ('f' + i) + "TextField" + " nicht gefunden.");
             }
         }
-        return asts.toArray(new ASTNodeI[0]);
+        return coloredNodes.toArray(new ColoredNode[0]);
     }
 }
 
