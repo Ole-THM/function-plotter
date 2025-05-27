@@ -30,7 +30,7 @@ public record FunctionCallNode(String functionName, List<ASTNodeI> arguments) im
             case "sqrt" -> "sqrt(" + this.arguments.getFirst().toStringInfix() + ")";
             case "log" -> "log(" + (this.arguments.get(1) != null
                     ? this.arguments.getFirst().toStringInfix() + ", " + this.arguments.get(1).toStringInfix()
-                    : String.format("%.4f", Math.E) + ", " + this.arguments.get(0).toStringInfix()) + ")";
+                    : String.format("%.4f", Math.E) + ", " + this.arguments.getFirst().toStringInfix()) + ")";
             default -> throw new UnsupportedOperationException("Unsupported function: " + functionName);
         };
     }
@@ -44,7 +44,7 @@ public record FunctionCallNode(String functionName, List<ASTNodeI> arguments) im
             case "sqrt" -> this.arguments.getFirst().toStringRPN() + " sqrt";
             case "log" -> (this.arguments.get(1) != null
                     ? this.arguments.getFirst().toStringRPN() + " " + this.arguments.get(1).toStringRPN()
-                    : String.format("%.4f", Math.E) + ", " + this.arguments.get(0).toStringRPN()) + " log";
+                    : String.format("%.4f", Math.E) + ", " + this.arguments.getFirst().toStringRPN()) + " log";
             default -> throw new UnsupportedOperationException("Unsupported function: " + functionName);
         };
     }
