@@ -17,7 +17,7 @@ Natürlich! Hier ist ein übersichtlicher Workflow-Chart für dein Funktionsplot
 ### **1. Projektvorbereitung**
 - [X] Projektstruktur in IntelliJ anlegen
 - [X] Git-Repository initialisieren
-- [ ] Abhängigkeiten/Libraries einrichten (z.B. Expr4j, XChart, JavaFX, JSVG)
+- [X] Abhängigkeiten/Libraries einrichten (z.B. Expr4j, XChart, JavaFX, JSVG)
 
 ### **2. Eingabeverarbeitung**
 - [ ] GUI für die Eingabe von mathematischen Ausdrücken (Infix/UPN)
@@ -56,7 +56,6 @@ Natürlich! Hier ist ein übersichtlicher Workflow-Chart für dein Funktionsplot
 ### **10. Abgabe**
 - [ ] Projekt als ZIP und lauffähige JAR für LVP packen
 - [ ] Abgabe gemäß Vorgaben
-
 
 ### **11. Polishing**
 - [ ] Letzte Anpassungen und Optimierungen
