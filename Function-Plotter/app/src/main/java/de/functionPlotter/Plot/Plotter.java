@@ -13,9 +13,14 @@ public class Plotter {
 
     public static void plot(ASTNodeI...ast) {
         GlobalContext.outputString = new StringBuilder();
-        GlobalContext.outputString.append("<svg width=\"").append(GlobalContext.outputDimensions[0]).append("\" height=\"").append(GlobalContext.outputDimensions[1]).append("\" xmlns=\"http://www.w3.org/2000/svg\">\n");
+        int width = GlobalContext.outputDimensions.width();
+        int height = GlobalContext.outputDimensions.height();
 
-        BaseCoordinateSystem.genBase(-10,10,-10,10);
+        // Set the viewBox and preserveAspectRatio attributes
+        GlobalContext.outputString.append("<svg width=\"").append(width).append("\" height=\"").append(height)
+                .append("\" viewBox=\"0 0 ").append(width).append(" ").append(height)
+                .append("\" preserveAspectRatio=\"xMidYMid meet\" xmlns=\"http://www.w3.org/2000/svg\">\n");
+        BaseCoordinateSystem.genBase();
         for (ASTNodeI tree : ast) {
             System.out.println("Plotting function: " + tree.toStringInfix());
             plotFunction(tree);
@@ -30,9 +35,9 @@ private static void plotFunction(ASTNodeI ast) {
     for (double x = GlobalContext.xyRange.xMin(); x <= GlobalContext.xyRange.xMax(); x += getStepSize()) {
         GlobalContext.VARIABLES.set("x", new ValueNode(x));
         double y = ast.evaluate();
-        int xPos = (int) ((x - GlobalContext.xyRange.xMin()) / (GlobalContext.xyRange.xMax() - GlobalContext.xyRange.xMin()) * GlobalContext.outputDimensions[0]);
-        int yPos = (int) ((y - GlobalContext.xyRange.yMin()) / (GlobalContext.xyRange.yMax() - GlobalContext.xyRange.yMin()) * GlobalContext.outputDimensions[1]);
-        yPos = GlobalContext.outputDimensions[1] - yPos;
+        int xPos = (int) ((x - GlobalContext.xyRange.xMin()) / (GlobalContext.xyRange.xMax() - GlobalContext.xyRange.xMin()) * GlobalContext.outputDimensions.width());
+        int yPos = (int) ((y - GlobalContext.xyRange.yMin()) / (GlobalContext.xyRange.yMax() - GlobalContext.xyRange.yMin()) * GlobalContext.outputDimensions.height());
+        yPos = GlobalContext.outputDimensions.height() - yPos;
         if (prevX != null && prevY != null) {
             GlobalContext.outputString.append("<line x1=\"").append(prevX.intValue())
                 .append("\" y1=\"").append(prevY.intValue())
@@ -48,7 +53,7 @@ private static void plotFunction(ASTNodeI ast) {
     private static double getStepSize() {
         // Adjust step size based on the range and resolution
         double range = GlobalContext.xyRange.xMax() - GlobalContext.xyRange.xMin();
-        return range / GlobalContext.outputDimensions[0]; // Step size based on width
+        return range / GlobalContext.outputDimensions.width(); // Step size based on width
     }
 
     private static void saveSvgToFile(String svgContent) {
