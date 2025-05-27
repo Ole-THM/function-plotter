@@ -34,16 +34,17 @@ Natürlich! Hier ist ein übersichtlicher Workflow-Chart für dein Funktionsplot
 - [ ] Anzeige der Infix- und UPN-Notation
 
 ### **5. Funktionsauswertung**
-- [ ] AST mit unterschiedlichen x-Werten evaluieren
-- [ ] Unterstützung für Konstanten und Funktionen (sin, cos, log, etc.)
+- [X] AST mit unterschiedlichen x-Werten evaluieren
+- [X] Unterstützung für Konstanten und Funktionen (sin, cos, log, etc.)
 
 ### **6. Plotten der Funktion**
-- [ ] Plot der Funktion im kartesischen Koordinatensystem (SVG-Erstellung)
-- [ ] Anzeige in der GUI
+- [X] Plot der Funktion im kartesischen Koordinatensystem (SVG-Erstellung)
+- [X] Anzeige in der GUI
 
 ### **7. Erweiterungen**
 - [ ] Komfortfunktionen: Zoom, Bereichsauswahl, mehrere Funktionen, Parameter
 - [ ] Zusätzliche Features wie logische Ausdrücke, Achsenskalierung, etc.
+- [ ] Unterstützung für X-Axis-Scaling (wie logarithmische X-Achse)
 
 ### **8. Dokumentation & LVP**
 - [ ] Integration in Live View Programming (LVP)
