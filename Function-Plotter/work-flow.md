@@ -42,8 +42,12 @@ Natürlich! Hier ist ein übersichtlicher Workflow-Chart für dein Funktionsplot
 - [X] Anzeige in der GUI
 
 ### **7. Erweiterungen**
-- [ ] Komfortfunktionen: Zoom, Bereichsauswahl, mehrere Funktionen, Parameter
-- [ ] Zusätzliche Features wie logische Ausdrücke, Achsenskalierung, etc.
+- [ ] Komfortfunktionen: 
+  - [X] Bereichsauswahl
+  - [X] mehrere Funktionen
+  - [X] Parameter
+- [ ] Zusätzliche Features wie 
+  - [ ] logische Ausdrücke
 - [ ] Unterstützung für X-Axis-Scaling (wie logarithmische X-Achse)
 
 ### **8. Dokumentation & LVP**
