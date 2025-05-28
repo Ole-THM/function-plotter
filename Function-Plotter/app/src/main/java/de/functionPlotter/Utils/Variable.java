@@ -5,14 +5,6 @@ import de.functionPlotter.AbstractSyntaxTree.ASTNodeI;
 
 public record Variable(String name, ASTNodeI astNode) {
 
-    public String getName() {
-        return name;
-    }
-
-    public ASTNodeI getValue() {
-        return astNode;
-    }
-
     public double evaluate() {
         if (astNode == null) {
             throw new IllegalStateException("Variable astNode is not set.");
