@@ -83,11 +83,12 @@ public class Controller implements Initializable {
     @FXML
     private void plotButtonHandler() throws ParseException {
         System.out.println("You clicked me!");
-        System.out.println("f: " + fTextField.getText());
         GlobalContext.xyRange = this.getRangeValuesOrDefault();
-        Plotter.plot(this.getNodesAndColors());
+        ColoredNode[] nodesAndColors = this.getNodesAndColors();
+        Plotter.plot(nodesAndColors);
 //        webView.getEngine().load(Objects.requireNonNull(getClass().getResource("/output.svg")).toExternalForm()); // load save svg file
         webView.getEngine().loadContent(GlobalContext.outputString.toString());
+        cleanUpInputFields(nodesAndColors);
     }
 
     @FXML
@@ -276,6 +277,13 @@ public class Controller implements Initializable {
         }
 
         return new XYRange(xMin, xMax, yMin, yMax);
+    }
+
+    private void cleanUpInputFields(ColoredNode... coloredNodes) {
+        for (int i = 0; i < this.numberOfExpressions; i++) {
+            TextField textField = (TextField) functionAnchorPane.lookup("#" + (char) ('f' + i) + "TextField");
+            textField.setText(coloredNodes[i].ast().toStringInfix());
+        }
     }
 }
 
