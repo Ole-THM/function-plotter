@@ -11,7 +11,7 @@ public record VariableNode(String name) implements ASTNodeI {
 
     @Override
     public String toStringInfix() {
-        return GlobalContext.VARIABLES.getOrDefault(name).toStringInfix();
+        return GlobalContext.VARIABLES.getOrDefault(name).name();
     }
 
     public String toStringRPN() { return GlobalContext.VARIABLES.getOrDefault(name).toStringRPN(); }
