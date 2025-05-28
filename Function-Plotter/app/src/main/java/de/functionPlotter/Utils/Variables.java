@@ -24,12 +24,12 @@ public class Variables {
     }
 
     public void remove(String name) {
-        this.variables.removeIf(var -> var.getName().equals(name));
+        this.variables.removeIf(var -> var.name().equals(name));
     }
 
     public Variable getOrDefault(String name) {
         for (Variable variable : this.variables) {
-            if (variable.getName().equals(name)) {
+            if (variable.name().equals(name)) {
                 return variable;
             }
         }
